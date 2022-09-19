@@ -4,6 +4,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { refresh_user_validation } from './Redux/middleware/user.thunks'
 
+// import LogInSignUp from './pages/LogInSignUp'
+// import MealPrep from './pages/MealPrep'
+// import Header from './components/Header'
+// import MenuContainer from './components/features/Menu/MenuContainer'
+
 const LogInSignUp = lazy(() => import('./pages/LogInSignUp'))
 const MealPrep = lazy(() => import('./pages/MealPrep'))
 const Header = lazy(() => import('./components/Header'))
@@ -53,8 +58,8 @@ function App() {
 
                   <Route path='login' element={<LogInSignUp isLogIn={true} />}/>
                   <Route path='signup' element={<LogInSignUp isLogIn={false} />}/>
-                  <Route path='/menu' element={<MenuContainer />} />
-                  <Route path='/' index element={<MealPrep />} />
+                  <Route path='menu' element={<MenuContainer />} />
+                  <Route path='/*' element={<MealPrep />} />
 
               </Routes>
             </Suspense>

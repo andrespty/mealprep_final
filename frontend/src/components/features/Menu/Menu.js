@@ -32,7 +32,7 @@ function Menu({mealComponent: MealComponent = MealDataHandler ,...props}) {
                     <Tab>My Meals</Tab>
                     <Tab>My Foods</Tab>
                     <Tab>Meals</Tab>
-                    <Tab>Foods</Tab>
+                    {/* <Tab>Foods</Tab> */}
                     
                 </TabList>
 
@@ -53,15 +53,15 @@ function Menu({mealComponent: MealComponent = MealDataHandler ,...props}) {
 
                     <TabPanel>
                         <RequiresUser>
-                        <DrawerListWithSearch
-                            list={myFoods}
-                            resourceName='food'
-                            itemComponent={withContainer(FoodDataHandler)} // Component for the list display
-                            emptyComponent={EmptyList}
-                            body={withFoodDetails(FoodDetail)} // Component that will be rendered in the drawer
-                            emptyComponentProps={{isMeal: false}}
-                            drawerProps={{placement: 'left', size:'sm'}}
-                        />
+                            <DrawerListWithSearch
+                                list={myFoods}
+                                resourceName='food'
+                                itemComponent={withContainer(FoodDataHandler)} // Component for the list display
+                                emptyComponent={EmptyList}
+                                body={withFoodDetails(FoodDetail)} // Component that will be rendered in the drawer
+                                emptyComponentProps={{isMeal: false}}
+                                drawerProps={{placement: 'left', size:'sm'}}
+                            />
                         </RequiresUser>
                     </TabPanel>
                 
@@ -79,7 +79,7 @@ function Menu({mealComponent: MealComponent = MealDataHandler ,...props}) {
                         </RequiresUser>
                     </TabPanel>
 
-                    <TabPanel>
+                    {/* <TabPanel>
                         <RequiresUser>
                             <DrawerListWithSearch
                                 list={foods}
@@ -91,7 +91,7 @@ function Menu({mealComponent: MealComponent = MealDataHandler ,...props}) {
                                 drawerProps={{placement: 'left', size:'sm'}}
                             />
                         </RequiresUser>
-                    </TabPanel>
+                    </TabPanel> */}
 
                 </TabPanels>
 

@@ -31,9 +31,11 @@ function LogInSignUp({ isLogIn, logIn }) {
 
         setLoading(true)
         let fetch = isLogIn ? `${fetch_url}/users/login/` : `${fetch_url}/users/signup/`
+        console.log(info.info)
         axios.post(fetch, info.info)
         .then(res => res.data)
         .then(json => {
+            console.log('RESPONSE...')
             if (json.success){
                 logIn({
                     user:{...json.user}, 
@@ -129,14 +131,12 @@ const initial_log_in = {
 const initial_sign_up = {
     first_name:'',
     last_name:'',
-    username:'',
     email:'',
     password:'',
     password2:''
 }
 const initial_error = {
     message:'',
-    username:false,
     email:false,
     password:false
 }

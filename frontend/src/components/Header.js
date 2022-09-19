@@ -38,7 +38,7 @@ function Header({ user, status, logOut }) {
                             isLoggedIn
                             ?   <HStack alignItems={'center'} spacing={6}>
                                     <Heading onClick={home} size='md' cursor='pointer' color={isHome ? 'orange.500': ''} >
-                                        Home
+                                        Homee
                                     </Heading>
                                     <Heading onClick={menu} size='md' cursor='pointer' color={isMenu ? 'orange.500': ''}>
                                         Menu

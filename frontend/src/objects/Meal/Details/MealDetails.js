@@ -13,8 +13,10 @@ import { withEditMeal } from './withEditMeal'
 import withMealDetails from '../../../Redux/containers/mealDetails/withMealDetails'
 import MultiSelectList from '../../../components/containers/MultiSelectList'
 import withUserInfo from '../../../Redux/containers/user/withUserInfo'
+import { withAlert } from '../../../components/containers/withAlert'
 
 const ButtonWithDrawer = withDrawer(Button)
+const ButtonWithAlert = withAlert(Button)
 
 function MealDetails({ meal, onClose, save, isLocal=false, ...props }) {
 
@@ -47,9 +49,15 @@ function MealDetails({ meal, onClose, save, isLocal=false, ...props }) {
                             {
                                 status.isEditting
                                 ?   <>
-                                        <Button onClick={delete_meal} colorScheme='red'>
+                                        <ButtonWithAlert 
+                                            action={delete_meal} 
+                                            colorScheme='red'
+                                            header="Delete Meal"
+                                            body={<>Are you sure you want to delete this item?</>}
+                                            cta={'Delete'}
+                                        >
                                             Delete
-                                        </Button>
+                                        </ButtonWithAlert>
                                         <Button onClick={remove}>
                                             Remove Items
                                         </Button>

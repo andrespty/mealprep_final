@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Input, Select, Flex, Stack, Heading, Divider, Button, Spacer, Text } from '@chakra-ui/react'
+import { Box, Input, Select, Flex, Stack, Heading, Divider, Button, Spacer, Text, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 import FormField from '../../FormField'
 import { useCreateFood } from './useCreateFood'
 import InputNumber from '../../InputNumber'
@@ -45,14 +45,39 @@ function CreateFood() {
                 <FormField label='Serving size' isRequired={true}>
                     <Text>1 Serving:</Text>
                     <Stack direction='row'>
-                        <InputNumber placeholder='1' value={info.serving} onChange={(e) => modify_serving({serving:e || 0})} />
-                        <Select placeholder='Select unit' value={info.serving_unit} onChange={(e) => modify_serving({serving_unit:e.target.value})} >
+                        <InputNumber placeholder='1' value={info.serving} onChange={(e) => modify_serving({serving:e || 0})} maxW={'100%'} />
+                        <Menu>
+                            <MenuButton as={Button} width={'100%'}>
+                                {
+                                    info.serving_unit === ''
+                                    ? "Select Unit"
+                                    : `${info.serving_unit}`
+                                }
+                            </MenuButton>
+                            <MenuList>
+                                {
+                                    units_list.map((unit, key) => {
+                                        let val = unit
+                                        if (unit === 'Select Unit') val = ''
+                                        return (
+                                        <MenuItem 
+                                            onClick={() => modify_serving({serving_unit:val})}
+                                            value={unit} 
+                                            key={key}
+                                        >
+                                            {unit}
+                                        </MenuItem>
+                                    )})
+                                }
+                            </MenuList>
+                        </Menu>
+                        {/* <Select placeholder='Select unit' value={info.serving_unit} onChange={(e) => modify_serving({serving_unit:e.target.value})} >
                             {
                                 units_list.map((unit, key) => (
                                     <option value={unit} key={key} >{unit}</option>
                                 ))
                             }
-                        </Select>
+                        </Select> */}
                     </Stack>
                 </FormField>
 
@@ -70,15 +95,13 @@ function CreateFood() {
 }
 
 const units_list = [
-    'unit(s) (Slice, apple, etc.)',
-    'mg',
+    'Select Unit',
     'g',
     'kg',
     'oz',
     'lb',
     'cup',
     'pnt',
-    'gal',
     'l',
     'ml'
 ]

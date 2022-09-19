@@ -5,7 +5,7 @@ import LoginIllustration from '../../../assets/LoginIllustration'
 
 function PleaseLogin() {
 
-    let navigate = useNavigate()
+    const navigate = useNavigate()
     const login= () => navigate('/login')
     const signup= () => navigate('/signup')
     

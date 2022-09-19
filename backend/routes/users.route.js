@@ -56,7 +56,6 @@ router.route('/signup').post(async (request, response) => {
     user.password = await bcrypt.hash(request.body.password, 10)
 
     const newUser = new User({
-        username: user.username.toLowerCase(),
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email.toLowerCase(),
@@ -67,7 +66,6 @@ router.route('/signup').post(async (request, response) => {
     .then(user => {
         const payload = {
             _id: user._id,
-            username: user.username,
             first_name: user.first_name,
             last_name: user.last_name,
             email: user.email

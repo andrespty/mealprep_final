@@ -1,10 +1,14 @@
 import React from 'react'
-import { Box, Heading, Text, Stack, Select, SimpleGrid, Button, ButtonGroup, Flex, Spacer } from '@chakra-ui/react'
+import { Box, Heading, Text, Stack, Select, SimpleGrid, Button, ButtonGroup, Flex, Spacer,
+Menu, MenuItem, MenuButton, MenuList } from '@chakra-ui/react'
 import FormField from '../../../components/FormField'
 import InputNumber from '../../../components/InputNumber'
 import { useFoodDetails } from './useFoodDetails'
 import MacrosDisplay from '../../../components/MacrosDisplay'
 import withUserInfo from '../../../Redux/containers/user/withUserInfo'
+import { withAlert } from '../../../components/containers/withAlert'
+
+const ButtonWithAlert = withAlert(Button)
 
 function FoodDetail({ food, onSave, edit=true, hasEdit=false, isLocal= false, handle_edit, onClose, ...props }) {
     console.log(food)
@@ -18,7 +22,6 @@ function FoodDetail({ food, onSave, edit=true, hasEdit=false, isLocal= false, ha
         <Box>
             <Heading>{ food.name }</Heading>
             <Text>{ food.description }</Text>
-            
             {
                 food.creator === props.user._id || isLocal
                 ?
@@ -39,9 +42,15 @@ function FoodDetail({ food, onSave, edit=true, hasEdit=false, isLocal= false, ha
                                     </Button>
                                     {
                                         edit
-                                        ?<Button colorScheme={'red'} onClick={delete_food}>
+                                        ?<ButtonWithAlert 
+                                            colorScheme={'red'} 
+                                            action={delete_food}
+                                            header="Delete Food"
+                                            body={<>Are you sure you want to delete this item?</>}
+                                            cta={'Delete'}
+                                        >
                                             Delete Food
-                                        </Button>
+                                        </ButtonWithAlert>
                                         : null
                                     }
                             </>   
@@ -66,7 +75,7 @@ function FoodDetail({ food, onSave, edit=true, hasEdit=false, isLocal= false, ha
                                     <InputNumber 
                                         isDisabled={!edit}
                                         placeholder='1' 
-                                        onChange={(e) => modify({number_of_servings: parseFloat(e) || 0})} 
+                                        onChange={(e) => modify({number_of_servings: e || 0})} 
                                         value={serving.number_of_servings}    
                                     /> 
                                 </Box>
@@ -78,10 +87,36 @@ function FoodDetail({ food, onSave, edit=true, hasEdit=false, isLocal= false, ha
                                 <InputNumber 
                                     isDisabled={!edit}
                                     placeholder='1' 
-                                    onChange={e => modify({serving: parseFloat(e) || 0})}
+                                    onChange={e => modify({serving: e|| 0})}
                                     value={serving.serving}
+                                    width={"100%"}
                                 />  
-                                <Select 
+                                <Menu>
+                                    <MenuButton as={Button} isDisabled={!edit} width="100%">
+                                        {
+                                            serving.serving_unit === ''
+                                            ? "Select Unit"
+                                            : `${serving.serving_unit}`
+                                        }
+                                    </MenuButton>
+                                    <MenuList>
+                                        {
+                                            units_list.map((unit, key) => {
+                                                let val = unit
+                                                if (unit === 'Select Unit') val = ''
+                                                return (
+                                                <MenuItem 
+                                                    onClick={() => modify({serving_unit:val})}
+                                                    value={unit} 
+                                                    key={key}
+                                                >
+                                                    {unit}
+                                                </MenuItem>
+                                            )})
+                                        }
+                                    </MenuList>
+                                </Menu>
+                                {/* <Select 
                                     isDisabled={!edit}
                                     placeholder='Select unit'
                                     value={serving.serving_unit}    
@@ -92,7 +127,7 @@ function FoodDetail({ food, onSave, edit=true, hasEdit=false, isLocal= false, ha
                                             <option value={unit} key={key} >{unit}</option>
                                         ))
                                     }
-                                </Select>
+                                </Select> */}
                             </Stack>
 
                         </FormField>
@@ -114,15 +149,13 @@ function FoodDetail({ food, onSave, edit=true, hasEdit=false, isLocal= false, ha
 export default withUserInfo(FoodDetail)
 
 const units_list = [
-    'unit(s) (Slice, apple, etc.)',
-    'mg',
+    'Select Unit',
     'g',
     'kg',
     'oz',
     'lb',
     'cup',
     'pnt',
-    'gal',
     'l',
     'ml'
 ]

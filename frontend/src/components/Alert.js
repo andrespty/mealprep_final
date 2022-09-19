@@ -9,7 +9,7 @@ import {
     Button
   } from '@chakra-ui/react'
 
-function Alert({ header, body, isOpen, onClose, action}) {
+function Alert({ header, body, isOpen, onClose, action, cta='Continue'}) {
   return (
     <AlertDialog
         isOpen={isOpen}
@@ -31,7 +31,7 @@ function Alert({ header, body, isOpen, onClose, action}) {
                     Cancel
                 </Button>
                 <Button colorScheme='orange' onClick={action} ml={3}>
-                    Continue
+                    {cta}
                 </Button>
             </AlertDialogFooter>
 

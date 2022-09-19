@@ -13,7 +13,7 @@ function FoodTabs({ myFoods, foods, selectedFoods, setSelectedFoods }) {
       
         <TabList>
           <Tab>My Foods</Tab>
-          <Tab>Foods</Tab>
+          {/* <Tab>Foods</Tab> */}
           <Tab>Create Food</Tab>
         </TabList>
       
@@ -31,7 +31,7 @@ function FoodTabs({ myFoods, foods, selectedFoods, setSelectedFoods }) {
             </RequiresUser>
           </TabPanel>
           
-          <TabPanel>
+          {/* <TabPanel>
             <RequiresUser >
               
               <AddMyFoods 
@@ -42,7 +42,7 @@ function FoodTabs({ myFoods, foods, selectedFoods, setSelectedFoods }) {
 
             </RequiresUser>
           </TabPanel>
-          
+           */}
           <TabPanel>
             <RequiresUser >
 
